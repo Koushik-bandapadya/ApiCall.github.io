@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .card {
+        margin-top: 200px;
+        margin-left: 400px;
+
+        width: 40%;
+        border: 3px solid #ad2134;
+        display: block;
+        padding: 80px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        padding: 2px 16px;
+      }
+    </style>
+    <div id="container">
+      <!-- <div  id="card">
+            <article class="card">
+                <div class="card-body">
+         <img src="${data.flag}" alt="" class="card-body-img" />
+         <h1 class="card-body-title">
+             ${data.name}<span></span>
+         </h1>
+         <p class="card-body-text"> capital:${data.capical}</p>
+        </div>
+       <div class="card-footer">
+           <div class="card-footer-social">
+            <h3>${data.nativeName}</h3>
+            <p>Native Language</p>
+           </div>
+           <div class="card-footer-social">
+               <h3>${data.population}</h3>
+            <p>Population</p>
+          </div>
+          <div class="card-footer-social">
+              <h3>${data.demonym}</h3>
+              <p>Demonym</p>
+          </div>
+         </div>
+        </article> -->
+    </div>
+
+    <script>
+      const container = document.querySelector("#container");
+
+      const request = new XMLHttpRequest();
+      request.open("GET", "https://restcountries.eu/rest/v2/name/bd");
+
+      request.send();
+
+      request.addEventListener("load", function () {
+        //  console.log(this.responseText);
+        const [data] = JSON.parse(this.responseText);
+        // console.log(data.capital);
+        const htmlData = `
+        <div class="card">
+            <img src="${data.flag}" alt="Avatar" style="width:20%">
+            <div class="container">
+               
+
+              <h4><b> ${data.name}</b></h4> 
+              <h4><b> capital:${data.capital}</b></h4> 
+              <h4><b> Region:${data.region}</b></h4> 
+              
+              <h4><b> Native name:${data.nativeName}</b></h4> 
+              
+               
+            </div>
+          </div>
+        `;
+
+        container.insertAdjacentHTML("afterbegin", htmlData);
+      });
+    </script>
+  </body>
+</html>
